@@ -19,7 +19,7 @@ use Ngmy\MediaThumbnailUrl\Strategy\InstagramStrategy;
 use Ngmy\MediaThumbnailUrl\Strategy\InstagramStrategyParameter\InstagramThumbnailSize;
 
 $mediaUrl = 'https://www.instagram.com/p/CkRFMwSjajp/';
-$strategy = new YoutubeStrategy(
+$strategy = new InstagramStrategy(
     thumbnailSize: InstagramThumbnailSize::Thumbnail,
 );
 $generator = Generator::createFromStrategy($strategy);

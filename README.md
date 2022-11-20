@@ -19,9 +19,9 @@ use Ngmy\MediaThumbnailUrl\Strategy\InstagramStrategy;
 use Ngmy\MediaThumbnailUrl\Strategy\InstagramStrategyParameter\InstagramThumbnailSize;
 
 $mediaUrl = 'https://www.instagram.com/p/CkRFMwSjajp/';
-$strategy = new YoutubeStrategy([
+$strategy = new YoutubeStrategy(
     thumbnailSize: InstagramThumbnailSize::Thumbnail,
-]);
+);
 $generator = Generator::createFromStrategy($strategy);
 $generator->generate($mediaUrl); // return '//www.instagram.com/p/CkRFMwSjajp/media?size=t'
 ```
@@ -34,10 +34,10 @@ use Ngmy\MediaThumbnailUrl\Strategy\YoutubeStrategyParameter\YoutubeThumbnailSiz
 use Ngmy\MediaThumbnailUrl\Strategy\YoutubeStrategyParameter\YoutubeThumbnailFormat;
 
 $mediaUrl = 'https://www.youtube.com/watch?v=EEixTRM5gUk';
-$strategy = new YoutubeStrategy([
+$strategy = new YoutubeStrategy(
     thumbnailSize: YoutubeThumbnailSize::NormalQualityDefault,
     thumbnailFormat: YoutubeThumbnailFormat::Jpeg,
-]);
+);
 $generator = Generator::createFromStrategy($strategy);
 $generator->generate($mediaUrl); // return '//img.youtube.com/vi/EEixTRM5gUk/default.jpg'
 ```

@@ -1,0 +1,49 @@
+## ローカル環境を起動する
+my/up:
+	docker run --rm \
+		-u "$(shell id -u):$(shell id -g)" \
+		-v "$(dir $(realpath $(firstword $(MAKEFILE_LIST)))):/var/www/html" \
+		-w /var/www/html \
+		laravelsail/php81-composer:latest \
+		bash -c " \
+			composer install --ignore-platform-reqs \
+			&& composer bin all install --ignore-platform-reqs \
+		"
+	sail up -d
+
+## ローカル環境を終了する
+my/down:
+	sail stop
+
+## Sailをインストールする
+my/sail-install:
+	docker run --rm \
+		-u "$(shell id -u):$(shell id -g)" \
+		-v "$(dir $(realpath $(firstword $(MAKEFILE_LIST)))):/var/www/html" \
+		-w /tmp \
+		-it \
+		laravelsail/php81-composer:latest \
+		bash -c " \
+			composer create-project laravel/laravel laravel \
+			&& cd laravel \
+			&& php artisan sail:install --with=none \
+			&& cat docker-compose.yml | grep -Ev \"ports:|APP_PORT|VITE_PORT|networks:|- sail|sail:|driver: bridge\" > docker-compose.new.yml \
+			&& sed -i -e 's/\.\/vendor\/laravel\/sail\/runtimes\/8\.1/\.\/vendor\-bin\/sail\/vendor\/laravel\/sail\/runtimes\/8\.1/g' docker-compose.new.yml \
+			&& cp docker-compose.new.yml /var/www/html/docker-compose.yml \
+		"
+
+## テストを実行する
+my/test:
+	sail bin phpunit ${ARG}
+
+## 静的解析を実行する
+my/lint:
+	sail bin phpstan clear-result-cache
+	sail bin phpstan analyse ${ARG}
+
+## フォーマッターを実行する
+my/fmt:
+	rm -f .php-cs-fixer.cache
+	sail bin php-cs-fixer fix ${ARG}
+
+# vim: set ft=make:

@@ -1,0 +1,48 @@
+{
+    "diagnostic-languageserver.linters": {
+        "phpcs": {
+            "command": "docker",
+            "debounce": 100,
+            "rootPatterns": ["composer.json", "composer.lock", "vendor", ".git"],
+            "args": ["exec", "php-media-thumbnail-url-laravel.test-1", "vendor/bin/phpcs", "--report=emacs", "%relativepath"],
+            "offsetLine": 0,
+            "offsetColumn": 0,
+            "sourceName": "phpcs",
+            "formatLines": 1,
+            "formatPattern": [
+                "^.*:(\\d+):(\\d+):\\s+(.*)\\s+-\\s+(.*)(\\r|\\n)*$",
+                {
+                    "line": 1,
+                    "column": 2,
+                    "message": 4,
+                    "security": 3
+                }
+            ],
+            "securities": {
+                "error": "error",
+                "warning": "warning"
+            }
+        },
+        "phpstan": {
+            "command": "docker",
+            "debounce": 100,
+            "rootPatterns": ["composer.json", "composer.lock", "vendor", ".git"],
+            "args": ["exec", "php-media-thumbnail-url-laravel.test-1", "vendor/bin/phpstan", "analyse", "--error-format", "raw", "--no-progress", "%relativepath"],
+            "offsetLine": 0,
+            "offsetColumn": 0,
+            "sourceName": "phpstan",
+            "formatLines": 1,
+            "formatPattern": [
+                "^[^:]+:(\\d+):(.*)(\\r|\\n)*$",
+                {
+                    "line": 1,
+                    "message": 2
+                }
+            ]
+        }
+    },
+    "diagnostic-languageserver.filetypes": {
+        "php": ["phpcs", "phpstan"]
+    },
+    "intelephense.environment.phpVersion": "8.1.0"
+}

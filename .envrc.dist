@@ -1,0 +1,9 @@
+clear_direnv_aliases
+
+sail() {
+  [ -f sail ] && bash sail "$@" || bash vendor/bin/sail "$@"
+}
+
+export_function sail
+
+# vim: set ft=bash:

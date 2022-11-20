@@ -1,0 +1,35 @@
+{
+    "name": "ngmy/media-thumbnail-url",
+    "type": "library",
+    "description": "Get thumbnail URL for a given media URL. Supports Instagram and YouTube.",
+    "keywords": ["thumbnail", "instagram", "youtube"],
+    "license": "MIT",
+    "require": {
+        "php": "^8.1",
+        "league/uri": "^6.8",
+        "league/uri-components": "^2.4"
+    },
+    "require-dev": {
+        "bamarni/composer-bin-plugin": "^1.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ngmy\\MediaThumbnailUrl\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ngmy\\MediaThumbnailUrl\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "bamarni/composer-bin-plugin": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

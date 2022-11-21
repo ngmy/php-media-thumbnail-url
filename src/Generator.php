@@ -14,7 +14,7 @@ class Generator
     {
     }
 
-    public function createFromStrategy(StrategyInterface $strategy): self
+    public static function createFromStrategy(StrategyInterface $strategy): self
     {
         return (new self(new MediaUrlParser(new MediaUrlNormalizer(new UrlNormalizer()))))->setStrategy($strategy);
     }
